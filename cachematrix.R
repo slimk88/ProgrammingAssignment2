@@ -3,33 +3,32 @@
 ## If the matrix inverse was cached, it is only retrieved by the second function
 ## otherwise it is calculated.
 
-## The first function called: makeCacheMatrix, creates a list of functions that
+## The first function called "makeCacheMatrix", creates a list of functions that
 ## set the value of the matrix, get the value of the matrix, set the inverse of
 ## that matrix and finally get the value of the inverse matrix
 
 makeCacheMatrix <- function(mtx = matrix()) {
         
-                ## "inv_mtx", The inverse of the matrix "mtx", is first initialized to NULL
+        ## "inv_mtx", The inverse of the matrix "mtx", is first initialized to NULL
         
-                inv_mtx <- NULL
+                inv.mtx <- NULL
                 
-                ## The follwoing 4 functions are created  to (1) set, (2) get the value 
-                ## of the matrix "mtx and (3) set and (4) get its inverse. 
+        ## The follwoing 4 functions are created  to (1) set, (2) get the value 
+        ## of the matrix "mtx and (3) set and (4) get its inverse. 
                 
-                set_mtx <- function(y) {
+                set.mtx <- function(y) {
                         mtx <<- y
-                        inv_mtx <<- NULL
+                        inv.mtx <<- NULL
                 } 
-                get_mtx <- function() mtx
-                set_inv <- function(solve) mtx <<- solve
-                get_inv <- function() inv_mtx
                 
-                ## Here the 4 functions are listed via the function list()
-                ## These functions will be used in the function "cacheSolve" below
+                get.mtx <- function() mtx
+                set.inv <- function(solve) mtx <<- solve
+                get.inv <- function() inv.mtx
                 
-                list(set_mtx = set_mtx, get_mtx = get_mtx,
-                     set_inv = set_inv,
-                     get_inv = get_inv)
+        ## Here the 4 functions are listed via the function list()
+        ## These functions will be used in the function "cacheSolve" below
+                
+                list(set.mtx = set.mtx, get.mtx = get.mtx, set.inv = set.inv, get.inv = get.inv)
         }
 }
 
@@ -42,17 +41,18 @@ cacheSolve <- function(mtx, ...) {
         ## If the cached inverse matrix is found, the inverse of the matrix is retrieved 
         ## and returned with no need of re-calculating
         
-        inv_mtx <- mtx$get_inv()
-        if(!is.null(inv_mtx)) {
+                inv.mtx <- mtx$get.inv()
+                if(!is.null(inv.mtx)) {
                 message("Please wait while we get the cached data")
-                return(inv_mtx)
+                return(inv.mtx)
         }
         
         ## When the inverse of the matrix "mtx" is not found, 
         ## it is calculated through the function solve() below and returned
         
-        data <- mtx$get_mtx()
-        inv_mtx <- solve(data, ...)
-        mtx$set_inv(inv_mtx)
-        inv_mtx
+                data <- mtx$get.mtx()
+                inv.mtx <- solve(data, ...)
+                mtx$set.inv(inv.mtx)
+        
+                inv.mtx
 }
