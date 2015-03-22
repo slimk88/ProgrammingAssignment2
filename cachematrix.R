@@ -1,5 +1,7 @@
-## The two functions below are used to create a special object
-## that stores a matrix and then cache the inverse of that specific matrix.
+## The two functions below are used to create a special object that stores a matrix 
+## and then cache the inverse of that specific matrix. 
+## If the matrix inverse was cached, it is only retrieved by the second function
+## otherwise it is calculated.
 
 ## The first function called: makeCacheMatrix, creates a list of functions that
 ## set the value of the matrix, get the value of the matrix, set the inverse of
